@@ -15,12 +15,12 @@ def generate(size: int, seed: int) -> dict[str, Any]:
 
 
 def solve(payload: dict[str, Any]) -> dict[str, Any]:
-    left = np.array(payload["left"])
-    right = np.array(payload["right"])
-    size = len(left)
-    result = np.matmul(left, right)
-    trace = int(np.trace(result))
-    checksum = int(np.sum(result))
+     left = np.asarray(payload["left"], dtype=np.int64)
+     right = np.asarray(payload["right"], dtype=np.int64)
+     size = len(left)
+     result = np.matmul(left, right)
+     trace = int(np.trace(result, dtype=np.int64))
+     checksum = int(np.sum(result, dtype=np.int64))
     return {"size": size, "trace": trace, "checksum": checksum}
 
 
