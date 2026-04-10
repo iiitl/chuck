@@ -10,12 +10,6 @@ The Python reference implementation (`chuck/tasks/prime_analytics/task.py`) reli
 2. **Odd-Number-Only Generation:** The dataset generator strictly produces odd numbers, effectively halving the required compute space.
 3. **Deterministic Probabilities:** To ensure snapshot comparisons and regression checks remain meaningful, the Random Number Generator (RNG) used to select Miller-Rabin witnesses is seeded by the candidate number itself (`rng = Random(number)`). This guarantees reproducible results across different hardware and backends.
 
-### Performance vs. Reliability Trade-off (Blast Radius)
-Because this task is **probabilistic**, it trades absolute certainty for speed.
-* **Rounds:** The solver executes `4` rounds of Miller-Rabin testing per candidate.
-* **Confidence Score:** A composite number has at most a $1/4$ chance of passing a single round. Therefore, the theoretical confidence level for a positively identified prime is `~0.996` ($1.0 - 0.25^4$).
-* **Blast Radius:** Approximately 4 out of every 1,000 composite numbers (pseudoprimes) may be falsely identified as prime. For large-scale data density estimation, this margin of error is fully acceptable.
-
 ### Why this design:
 * Much faster than exact primality for large batches.
 * Accepts tiny error probability for strong speed gains.
@@ -27,7 +21,12 @@ To benchmark this specific capability and test your active backend:
 
 ```bash
 python -m chuck bench --task prime_analytics
-
+```
 ### Implementation Example
 For a complete, runnable Python snippet with expected inputs and outputs, please see our dedicated usage guide:
-👉 **[Prime Analytics Example](docs/examples/prime_analytics_example.md)**
+👉 **[Prime Analytics Example](docs/usage/prime_analytics_example.md)**
+
+### Usage of AI
+Tool used - Google Gemini
+usage - to create README.md for particular parts for good usage of technical terms.
+parts in which AI is used - Algorithm Details & Optimizations
