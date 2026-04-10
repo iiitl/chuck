@@ -5,10 +5,30 @@ The `compute_core` task runs dense, CPU-heavy numeric kernels (specifically bloc
 
 ## CLI Benchmark
 
-In this example we will be using the built-in CLI runner. This will automatically generate a deterministic 64x64 matrix using a custom seed, execute the fastest available backend (C++ backend if available, otherwise Python), and return the time taken.
-
-Run the command below to benchmark your CPU on this task:
+The below command can be used to benchmark your system on this task:
 
 ```bash
 python -m chuck bench --task compute_core
+```
+
+## Usage in Code
+
+If you want to use or modify this benchmark in your own code, you will need to import `TASK_SPEC` from `compute_core` and `solve_with_backend` function from the `native_bindings` file.
+
+For example, this snippet displays the time taken along with JSON result data:
+```
+from chuck.chuck.native_bindings import solve_with_backend
+from chuck.chuck.tasks.compute_core import TASK_SPEC
+import time
+
+payload = TASK_SPEC.generator(64, 117)
+st_time = time.perf_counter()
+result = solve_with_backend(task=TASK_SPEC, payload=payload, backend="python")
+ed_time = time.perf_counter()
+print(f"{result}, took time: {ed_time-st_time}")
+```
+
+Output:
+```
+{'size': 64, 'trace': 83341, 'checksum': 5344296, 'backend': 'python'}, took time: 0.01829049299703911
 ```
