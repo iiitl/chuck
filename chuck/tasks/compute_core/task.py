@@ -4,6 +4,7 @@ from random import Random
 from typing import Any
 
 from ...common import TaskSpec
+import numpy as np
 
 
 def generate(size: int, seed: int) -> dict[str, Any]:
@@ -14,24 +15,12 @@ def generate(size: int, seed: int) -> dict[str, Any]:
 
 
 def solve(payload: dict[str, Any]) -> dict[str, Any]:
-    left = payload["left"]
-    right = payload["right"]
-    block_size = payload["block_size"]
+    left = np.asarray(payload["left"], dtype=np.int64)
+    right = np.asarray(payload["right"], dtype=np.int64)
     size = len(left)
-    result = [[0 for _ in range(size)] for _ in range(size)]
-    for row_block in range(0, size, block_size):
-        for col_block in range(0, size, block_size):
-            for inner_block in range(0, size, block_size):
-                for i in range(row_block, min(row_block + block_size, size)):
-                    left_row = left[i]
-                    result_row = result[i]
-                    for k in range(inner_block, min(inner_block + block_size, size)):
-                        factor = left_row[k]
-                        right_row = right[k]
-                        for j in range(col_block, min(col_block + block_size, size)):
-                            result_row[j] += factor * right_row[j]
-    trace = sum(result[index][index] for index in range(size))
-    checksum = sum(sum(row) for row in result)
+    result = np.matmul(left, right)
+    trace = int(np.trace(result, dtype=np.int64))
+    checksum = int(np.sum(result, dtype=np.int64))
     return {"size": size, "trace": trace, "checksum": checksum}
 
 
