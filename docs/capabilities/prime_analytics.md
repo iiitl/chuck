@@ -31,13 +31,6 @@ To benchmark this specific capability and test your active backend:
 ```bash
 python -m chuck bench --task prime_analytics
 
-### Python Quick Start
-You can easily import tasks directly into your own workflows. Here is an example using the probabilistic prime number solver:
-
-```python
-from chuck.tasks.prime_analytics.task import generate, solve
-
-candidates = generate(count=10000, seed=42)
-results = solve(candidates)
-
-print(f"Primes Found: {results['probable_primes']} (Confidence: {results['confidence']})")
+### Python Implementation Example
+For a complete, runnable Python script demonstrating how to import and utilize this capability, please see example file:
+**[docs/examples/prime_analytics_example.py](../examples/prime_analytics_example.py)**

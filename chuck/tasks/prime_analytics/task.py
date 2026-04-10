@@ -9,7 +9,7 @@ from ...common import TaskSpec, round4
 def _is_probable_prime(number: int, rounds: int = 5) -> bool:
     if number < 2:
         return False
-    small_primes = (2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61, 67, 71, 73, 79, 83, 89, 97)
+    small_primes = (2, 3, 5, 7, 11, 13, 17, 19, 23, 29)
     for prime in small_primes:
         if number == prime:
             return True
