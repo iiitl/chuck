@@ -1,0 +1,95 @@
+[33mcommit ecf3ab11cdf9f72d27ce10ae684d8010bc83216a[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mfeature/prime-docs-and-optimization[m[33m, [m[1;31morigin/feature/prime-docs-and-optimization[m[33m)[m
+Author: Arijeet Mukherjee <arijeet.mukherjee3108@gmail.com>
+Date:   Fri Apr 10 14:02:42 2026 +0000
+
+    feature: optimized prime_analytics throughput and add usage docs (Closes #18)
+
+[33mcommit a302e5f0eae129333c61d997404633a8346382a6[m[33m ([m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m, [m[1;32mmain[m[33m, [m[1;32mdocs/prime-analytics-usage[m[33m)[m
+Author: Aaryan Dadu <aaryandadu5157@gmail.com>
+Date:   Sat Apr 4 14:57:20 2026 +0530
+
+    fix: workflow and associated regression
+
+[33mcommit b073071bcf33852f5f4b836b4a27ae1426fd071e[m
+Author: Aaryan Dadu <aaryandadu5157@gmail.com>
+Date:   Sat Apr 4 14:51:22 2026 +0530
+
+    add workflows and pre-commit configs
+
+[33mcommit 3187e8fa25d6f8e875724d87f194f11d24350f29[m
+Author: Aaryan Dadu <aaryandadu5157@gmail.com>
+Date:   Sat Apr 4 14:48:45 2026 +0530
+
+    chore: move native builds to dedicated folder
+
+[33mcommit 5d0c3f43eed29bb98977ad6b8035d47f23f059cc[m
+Author: Aaryan Dadu <aaryandadu5157@gmail.com>
+Date:   Sat Apr 4 14:48:36 2026 +0530
+
+    test: add regressions and native smoke coverage
+
+[33mcommit 52561e75fb723a347265b5338d79fe3316007435[m
+Author: Aaryan Dadu <aaryandadu5157@gmail.com>
+Date:   Sat Apr 4 14:48:29 2026 +0530
+
+    feat: add relational fusion task
+
+[33mcommit 79b62b856a9265de38002b0aca9b09f673a9634e[m
+Author: Aaryan Dadu <aaryandadu5157@gmail.com>
+Date:   Sat Apr 4 14:48:24 2026 +0530
+
+    feat: add prime analytics task
+
+[33mcommit f5729ea5a041392aba14724a34dacbf471255d19[m
+Author: Aaryan Dadu <aaryandadu5157@gmail.com>
+Date:   Sat Apr 4 14:48:19 2026 +0530
+
+    feat: add memory tasks
+
+[33mcommit 3bb6d581fde62a15fba3a06a60850f910ab3c42c[m
+Author: Aaryan Dadu <aaryandadu5157@gmail.com>
+Date:   Sat Apr 4 14:48:14 2026 +0530
+
+    feat: add graph and compute tasks
+
+[33mcommit f3b51620fe615d9db9334b208dbc9bbc6e74b9df[m
+Author: Aaryan Dadu <aaryandadu5157@gmail.com>
+Date:   Sat Apr 4 14:48:08 2026 +0530
+
+    feat: add retrieval and encoding tasks
+
+[33mcommit 411eded988e9193be166cbc53efb354a154a2006[m
+Author: Aaryan Dadu <aaryandadu5157@gmail.com>
+Date:   Sat Apr 4 14:48:04 2026 +0530
+
+    feat: add io and ordering tasks
+
+[33mcommit 4b55c3dabc5aff3fc56600da83518f454b5cf651[m
+Author: Aaryan Dadu <aaryandadu5157@gmail.com>
+Date:   Sat Apr 4 14:47:55 2026 +0530
+
+    feat: add task framework and benchmarks
+
+[33mcommit d4d4737de6a3f4a790f04d7484e264bd2f5167da[m
+Author: Aaryan Dadu <aaryandadu5157@gmail.com>
+Date:   Sat Apr 4 14:47:50 2026 +0530
+
+    feat: add backend-aware snapshot flow
+
+[33mcommit 5029d381f3fae54dabc68de7e18ae45297bb7c09[m
+Author: Aaryan Dadu <aaryandadu5157@gmail.com>
+Date:   Sat Apr 4 14:47:42 2026 +0530
+
+    docs: add simple task design notes
+
+[33mcommit 14733434cc20344a76a38e70c58db49466ef57fb[m
+Author: Aaryan Dadu <aaryandadu5157@gmail.com>
+Date:   Sat Apr 4 14:47:33 2026 +0530
+
+    docs: update install and usage guides
+
+[33mcommit 1ad1d39bfd16e638679c09fa3197763fa30f081d[m
+Author: Aaryan Dadu <aaryandadu5157@gmail.com>
+Date:   Thu Apr 2 19:18:13 2026 +0530
+
+    Initial commit
