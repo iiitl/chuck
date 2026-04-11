@@ -19,16 +19,22 @@ def _baseline_path(task_name: str) -> Path:
 
 def _expected_cases() -> list[dict[str, Any]]:
     cases = []
+    SEEDS_PER_TASK = 5 
+    
     for index, task in enumerate(TASKS, start=1):
-        payload = task.generator(task.regression_size, index)
-        cases.append(
-            {
-                "task": task.name,
-                "seed": index,
-                "size": task.regression_size,
-                "expected": solve_with_backend(task=task, payload=payload, backend="python"),
-            }
-        )
+        for offset in range(SEEDS_PER_TASK):
+            
+            seed = (index * 10) + offset 
+            
+            payload = task.generator(task.regression_size, seed)
+            cases.append(
+                {
+                    "task": task.name,
+                    "seed": seed,
+                    "size": task.regression_size,
+                    "expected": solve_with_backend(task=task, payload=payload, backend="python"),
+                }
+            )
     return cases
 
 

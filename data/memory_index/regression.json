@@ -11,7 +11,7 @@
       "probes": 192,
       "true_positives": 64
     },
-    "seed": 8,
+    "seed": 84,
     "size": 128,
     "task": "memory_index"
   }

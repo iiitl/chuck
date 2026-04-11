@@ -1,42 +1,202 @@
 [
   {
-    "path": "data/io_pipeline/regression.json",
+    "path": "data\\io_pipeline\\regression.json",
     "task": "io_pipeline"
   },
   {
-    "path": "data/ordering_core/regression.json",
+    "path": "data\\io_pipeline\\regression.json",
+    "task": "io_pipeline"
+  },
+  {
+    "path": "data\\io_pipeline\\regression.json",
+    "task": "io_pipeline"
+  },
+  {
+    "path": "data\\io_pipeline\\regression.json",
+    "task": "io_pipeline"
+  },
+  {
+    "path": "data\\io_pipeline\\regression.json",
+    "task": "io_pipeline"
+  },
+  {
+    "path": "data\\ordering_core\\regression.json",
     "task": "ordering_core"
   },
   {
-    "path": "data/retrieval_core/regression.json",
+    "path": "data\\ordering_core\\regression.json",
+    "task": "ordering_core"
+  },
+  {
+    "path": "data\\ordering_core\\regression.json",
+    "task": "ordering_core"
+  },
+  {
+    "path": "data\\ordering_core\\regression.json",
+    "task": "ordering_core"
+  },
+  {
+    "path": "data\\ordering_core\\regression.json",
+    "task": "ordering_core"
+  },
+  {
+    "path": "data\\retrieval_core\\regression.json",
     "task": "retrieval_core"
   },
   {
-    "path": "data/data_encoding/regression.json",
+    "path": "data\\retrieval_core\\regression.json",
+    "task": "retrieval_core"
+  },
+  {
+    "path": "data\\retrieval_core\\regression.json",
+    "task": "retrieval_core"
+  },
+  {
+    "path": "data\\retrieval_core\\regression.json",
+    "task": "retrieval_core"
+  },
+  {
+    "path": "data\\retrieval_core\\regression.json",
+    "task": "retrieval_core"
+  },
+  {
+    "path": "data\\data_encoding\\regression.json",
     "task": "data_encoding"
   },
   {
-    "path": "data/graph_analytics/regression.json",
+    "path": "data\\data_encoding\\regression.json",
+    "task": "data_encoding"
+  },
+  {
+    "path": "data\\data_encoding\\regression.json",
+    "task": "data_encoding"
+  },
+  {
+    "path": "data\\data_encoding\\regression.json",
+    "task": "data_encoding"
+  },
+  {
+    "path": "data\\data_encoding\\regression.json",
+    "task": "data_encoding"
+  },
+  {
+    "path": "data\\graph_analytics\\regression.json",
     "task": "graph_analytics"
   },
   {
-    "path": "data/prime_analytics/regression.json",
+    "path": "data\\graph_analytics\\regression.json",
+    "task": "graph_analytics"
+  },
+  {
+    "path": "data\\graph_analytics\\regression.json",
+    "task": "graph_analytics"
+  },
+  {
+    "path": "data\\graph_analytics\\regression.json",
+    "task": "graph_analytics"
+  },
+  {
+    "path": "data\\graph_analytics\\regression.json",
+    "task": "graph_analytics"
+  },
+  {
+    "path": "data\\prime_analytics\\regression.json",
     "task": "prime_analytics"
   },
   {
-    "path": "data/memory_tier/regression.json",
+    "path": "data\\prime_analytics\\regression.json",
+    "task": "prime_analytics"
+  },
+  {
+    "path": "data\\prime_analytics\\regression.json",
+    "task": "prime_analytics"
+  },
+  {
+    "path": "data\\prime_analytics\\regression.json",
+    "task": "prime_analytics"
+  },
+  {
+    "path": "data\\prime_analytics\\regression.json",
+    "task": "prime_analytics"
+  },
+  {
+    "path": "data\\memory_tier\\regression.json",
     "task": "memory_tier"
   },
   {
-    "path": "data/memory_index/regression.json",
+    "path": "data\\memory_tier\\regression.json",
+    "task": "memory_tier"
+  },
+  {
+    "path": "data\\memory_tier\\regression.json",
+    "task": "memory_tier"
+  },
+  {
+    "path": "data\\memory_tier\\regression.json",
+    "task": "memory_tier"
+  },
+  {
+    "path": "data\\memory_tier\\regression.json",
+    "task": "memory_tier"
+  },
+  {
+    "path": "data\\memory_index\\regression.json",
     "task": "memory_index"
   },
   {
-    "path": "data/compute_core/regression.json",
+    "path": "data\\memory_index\\regression.json",
+    "task": "memory_index"
+  },
+  {
+    "path": "data\\memory_index\\regression.json",
+    "task": "memory_index"
+  },
+  {
+    "path": "data\\memory_index\\regression.json",
+    "task": "memory_index"
+  },
+  {
+    "path": "data\\memory_index\\regression.json",
+    "task": "memory_index"
+  },
+  {
+    "path": "data\\compute_core\\regression.json",
     "task": "compute_core"
   },
   {
-    "path": "data/relational_fusion/regression.json",
+    "path": "data\\compute_core\\regression.json",
+    "task": "compute_core"
+  },
+  {
+    "path": "data\\compute_core\\regression.json",
+    "task": "compute_core"
+  },
+  {
+    "path": "data\\compute_core\\regression.json",
+    "task": "compute_core"
+  },
+  {
+    "path": "data\\compute_core\\regression.json",
+    "task": "compute_core"
+  },
+  {
+    "path": "data\\relational_fusion\\regression.json",
+    "task": "relational_fusion"
+  },
+  {
+    "path": "data\\relational_fusion\\regression.json",
+    "task": "relational_fusion"
+  },
+  {
+    "path": "data\\relational_fusion\\regression.json",
+    "task": "relational_fusion"
+  },
+  {
+    "path": "data\\relational_fusion\\regression.json",
+    "task": "relational_fusion"
+  },
+  {
+    "path": "data\\relational_fusion\\regression.json",
     "task": "relational_fusion"
   }
 ]

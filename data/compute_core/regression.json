@@ -2,11 +2,11 @@
   {
     "expected": {
       "backend": "python",
-      "checksum": 76643,
+      "checksum": 85094,
       "size": 16,
-      "trace": 4787
+      "trace": 5409
     },
-    "seed": 9,
+    "seed": 94,
     "size": 16,
     "task": "compute_core"
   }

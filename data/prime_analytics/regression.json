@@ -3,13 +3,13 @@
     "expected": {
       "backend": "python",
       "candidates": 128,
-      "checksum": 28615758,
+      "checksum": 30628377,
       "confidence": 0.9961,
-      "prime_density_estimate": 0.125,
+      "prime_density_estimate": 0.1016,
       "probabilistic": true,
-      "probable_primes": 16
+      "probable_primes": 13
     },
-    "seed": 6,
+    "seed": 64,
     "size": 128,
     "task": "prime_analytics"
   }

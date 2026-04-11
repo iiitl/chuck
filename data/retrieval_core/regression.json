@@ -6,17 +6,17 @@
       "doc_count": 48,
       "probabilistic": true,
       "query_hits": {
-        "alpha": 26,
-        "delta": 34,
-        "eta": 34,
-        "kappa": 40
+        "beta": 28,
+        "epsilon": 28,
+        "lambda": 40,
+        "theta": 46
       },
       "sampled_docs": 24,
-      "top_term": "kappa",
-      "top_term_docs": 40,
+      "top_term": "theta",
+      "top_term_docs": 46,
       "vocab_size": 12
     },
-    "seed": 3,
+    "seed": 34,
     "size": 48,
     "task": "retrieval_core"
   }
