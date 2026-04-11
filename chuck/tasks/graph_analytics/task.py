@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import numpy as np
 from random import Random
 from typing import Any
 
@@ -21,26 +22,44 @@ def generate(node_count: int, seed: int) -> dict[str, list[str]]:
 
 def solve(graph: dict[str, list[str]], iterations: int = 16, damping: float = 0.85) -> dict[str, Any]:
     nodes = sorted(graph)
-    if not nodes:
+    n = len(nodes)
+    if n == 0:
         return {"node_count": 0, "top_node": "", "top_score": 0.0, "checksum": 0.0}
 
-    rank = {node: 1.0 / len(nodes) for node in nodes}
-    outgoing = {node: graph[node] if graph[node] else nodes for node in nodes}
-    base = (1.0 - damping) / len(nodes)
+    node_to_idx = {node: i for i, node in enumerate(nodes)}
+
+    src_list = []
+    dst_list = []
+    out_degrees = np.zeros(n)
+
+    for i, node in enumerate(nodes):
+        neighbors = graph[node]
+        out_degrees[i] = len(neighbors)
+        for neighbor in neighbors:
+            src_list.append(i)
+            dst_list.append(node_to_idx[neighbor])
+
+    src_indices = np.array(src_list)
+    dst_indices = np.array(dst_list)
+
+    ranks = np.full(n, 1.0 / n)
+    teleport_base = (1.0 - damping) / n
+
     for _ in range(iterations):
-        new_rank = {node: base for node in nodes}
-        for node in nodes:
-            share = rank[node] / len(outgoing[node])
-            for target in outgoing[node]:
-                new_rank[target] += damping * share
-        rank = new_rank
-    top_node = max(nodes, key=lambda node: (rank[node], node))
-    checksum = sum((index + 1) * rank[node] for index, node in enumerate(nodes))
+        new_ranks = np.full(n, teleport_base)
+        contributions = (ranks[src_indices] / out_degrees[src_indices]) * damping
+        np.add.at(new_ranks, dst_indices, contributions)
+        ranks = new_ranks
+
+    top_idx = np.argmax(ranks)
+    top_node = nodes[top_idx]
+    checksum = np.sum(np.arange(1, n + 1) * ranks)
+
     return {
-        "node_count": len(nodes),
+        "node_count": n,
         "top_node": top_node,
-        "top_score": round6(rank[top_node]),
-        "checksum": round6(checksum),
+        "top_score": round6(ranks[top_idx]),
+        "checksum": round6(float(checksum)),
     }
 
 
