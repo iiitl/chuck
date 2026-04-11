@@ -1,9 +1,19 @@
 # Data Encoding Usage
 
-The `data_encoding` task handles data compression and integrity verification using `zlib` and `sha256`.
+The `data_encoding` task handles high-performance data compression and verification.
 
-## Running the Example
-You can execute the standalone example script to see the workflow in action:
+### Usage Example
+Integrating the task into a Python workflow is straightforward:
 
-```bash
-python scripts/dataencoding.py
+```python
+from chuck.tasks.data_encoding.task import generate, solve
+
+# 1. Generate a test payload (size in bytes, seed)
+payload = generate(8192, 42)
+
+# 2. Execute the solver
+results = solve(payload)
+
+# 3. Access results
+print(f"Ratio: {results['ratio']:.2f}")
+print(f"Integrity: {results['roundtrip']}")
