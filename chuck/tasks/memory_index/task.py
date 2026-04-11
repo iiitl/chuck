@@ -8,7 +8,6 @@ from ...common import TaskSpec
 
 
 def _bloom_hashes(value: str, bit_count: int, hash_count: int) -> list[int]:
-    
     raw = value.encode()
     h1 = zlib.crc32(raw)
     h2 = zlib.adler32(raw)
@@ -19,7 +18,6 @@ def _bloom_hashes(value: str, bit_count: int, hash_count: int) -> list[int]:
 
 
 def generate(count: int, seed: int) -> dict[str, Any]:
-  
     rng = Random(seed)
     items = [f"item_{seed}_{index}_{rng.randrange(10_000)}" for index in range(count)]
     probes = items[: count // 2]
@@ -28,7 +26,6 @@ def generate(count: int, seed: int) -> dict[str, Any]:
 
 
 def solve(payload: dict[str, Any]) -> dict[str, Any]:
-  
     items = payload["items"]
     probes = payload["probes"]
     bit_count = payload["bit_count"]
@@ -36,11 +33,9 @@ def solve(payload: dict[str, Any]) -> dict[str, Any]:
     bits = bytearray((bit_count + 7) // 8)
 
     def set_bit(position: int) -> None:
-       
         bits[position // 8] |= 1 << (position % 8)
 
     def get_bit(position: int) -> bool:
-       
         return bool(bits[position // 8] & (1 << (position % 8)))
 
     for item in items:
