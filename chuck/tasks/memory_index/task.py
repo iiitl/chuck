@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from hashlib import blake2b, sha256
+import zlib
 from random import Random
 from typing import Any
 
@@ -8,12 +8,18 @@ from ...common import TaskSpec
 
 
 def _bloom_hashes(value: str, bit_count: int, hash_count: int) -> list[int]:
-    digest_a = int.from_bytes(blake2b(value.encode(), digest_size=8).digest(), "big")
-    digest_b = int.from_bytes(sha256(value.encode()).digest()[:8], "big")
-    return [((digest_a + index * digest_b) % bit_count) for index in range(hash_count)]
+    """Computes probe positions for a Bloom filter using double hashing."""
+    raw = value.encode()
+    h1 = zlib.crc32(raw)
+    h2 = zlib.adler32(raw)
+
+    step = 1 + (h2 % (bit_count - 1)) if bit_count > 1 else 1
+
+    return [((h1 + i * step) % bit_count) for i in range(hash_count)]
 
 
 def generate(count: int, seed: int) -> dict[str, Any]:
+    """Generates synthetic data and probe items for the memory index task."""
     rng = Random(seed)
     items = [f"item_{seed}_{index}_{rng.randrange(10_000)}" for index in range(count)]
     probes = items[: count // 2]
@@ -22,6 +28,7 @@ def generate(count: int, seed: int) -> dict[str, Any]:
 
 
 def solve(payload: dict[str, Any]) -> dict[str, Any]:
+    """Performs Bloom filter membership testing and calculates accuracy metrics."""
     items = payload["items"]
     probes = payload["probes"]
     bit_count = payload["bit_count"]
@@ -29,9 +36,11 @@ def solve(payload: dict[str, Any]) -> dict[str, Any]:
     bits = bytearray((bit_count + 7) // 8)
 
     def set_bit(position: int) -> None:
+        """Sets a bit at the given position in the bitset."""
         bits[position // 8] |= 1 << (position % 8)
 
     def get_bit(position: int) -> bool:
+        """Checks if a bit is set at the given position."""
         return bool(bits[position // 8] & (1 << (position % 8)))
 
     for item in items:
