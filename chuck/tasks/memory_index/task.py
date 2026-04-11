@@ -8,7 +8,7 @@ from ...common import TaskSpec
 
 
 def _bloom_hashes(value: str, bit_count: int, hash_count: int) -> list[int]:
-    """Computes probe positions for a Bloom filter using double hashing."""
+    
     raw = value.encode()
     h1 = zlib.crc32(raw)
     h2 = zlib.adler32(raw)
@@ -19,7 +19,7 @@ def _bloom_hashes(value: str, bit_count: int, hash_count: int) -> list[int]:
 
 
 def generate(count: int, seed: int) -> dict[str, Any]:
-    """Generates synthetic data and probe items for the memory index task."""
+  
     rng = Random(seed)
     items = [f"item_{seed}_{index}_{rng.randrange(10_000)}" for index in range(count)]
     probes = items[: count // 2]
@@ -28,7 +28,7 @@ def generate(count: int, seed: int) -> dict[str, Any]:
 
 
 def solve(payload: dict[str, Any]) -> dict[str, Any]:
-    """Performs Bloom filter membership testing and calculates accuracy metrics."""
+  
     items = payload["items"]
     probes = payload["probes"]
     bit_count = payload["bit_count"]
@@ -36,11 +36,11 @@ def solve(payload: dict[str, Any]) -> dict[str, Any]:
     bits = bytearray((bit_count + 7) // 8)
 
     def set_bit(position: int) -> None:
-        """Sets a bit at the given position in the bitset."""
+       
         bits[position // 8] |= 1 << (position % 8)
 
     def get_bit(position: int) -> bool:
-        """Checks if a bit is set at the given position."""
+       
         return bool(bits[position // 8] & (1 << (position % 8)))
 
     for item in items:
