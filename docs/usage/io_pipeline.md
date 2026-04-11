@@ -24,7 +24,7 @@ import time
 from chuck.native_bindings import solve_with_backend
 from chuck.tasks.io_pipeline import TASK_SPEC
 
-payload = TASK_SPEC.generator(5000, 42) # (buffer_size, seed)
+payload = TASK_SPEC.generator(5000, 42) # (count, seed)
 
 # Task Execution and recording start and end times.
 st_time = time.perf_counter()
