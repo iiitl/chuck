@@ -16,9 +16,9 @@ Benchmark summary:
 To modify or use benchmark in your own code you can import `TASK_SPEC` and `solve_with_backend` functions from `chuck.tasks.io_pipeline` and `chuck.native_bindings`.
 - `TASK_SPEC` config object contains the metadata and data generator for the task.
 - `solve_with_backend` handles logic switching between Python and C++.
-
-For example, this script displays JSON result data followed by time taken:
-#### Python
+### Example
+This script displays JSON result data followed by time taken:
+#### Python Script
 ```python
 import time
 from chuck.native_bindings import solve_with_backend
