@@ -21,7 +21,7 @@ def run_example():
     status = "SUCCESS" if results["roundtrip"] else "FAILED"
     print(f"Integrity Check: {status}")
 
-    
+    # CodeRabbit Fix: Signal failure to CI/CD systems using a non-zero exit code
     if not results["roundtrip"]:
         sys.exit(1)
 
