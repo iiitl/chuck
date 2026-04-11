@@ -3,12 +3,12 @@
     "expected": {
       "backend": "python",
       "records": 64,
-      "top_pair": "acct_003|bucket_03",
-      "top_value": 3220,
-      "total_value": 33802,
-      "unique_pairs": 33
+      "top_pair": "acct_005|bucket_02",
+      "top_value": 2227,
+      "total_value": 33077,
+      "unique_pairs": 30
     },
-    "seed": 1,
+    "seed": 14,
     "size": 64,
     "task": "io_pipeline"
   }

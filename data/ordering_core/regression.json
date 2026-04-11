@@ -2,13 +2,13 @@
   {
     "expected": {
       "backend": "python",
-      "checksum": 795494423,
+      "checksum": 585457486,
       "count": 128,
-      "max": 991026,
-      "median": 102583,
-      "min": -949966
+      "max": 998651,
+      "median": 30351,
+      "min": -973342
     },
-    "seed": 2,
+    "seed": 24,
     "size": 128,
     "task": "ordering_core"
   }

@@ -3,25 +3,25 @@
     "expected": {
       "backend": "python",
       "final_keys": [
+        5,
+        25,
+        6,
+        2,
         12,
-        7,
-        31,
         3,
-        10,
-        13,
-        18,
-        1,
+        26,
+        9,
+        31,
         8,
-        15,
         11,
-        25
+        28
       ],
-      "hit_rate": 0.3672,
-      "hits": 47,
-      "misses": 81,
+      "hit_rate": 0.4453,
+      "hits": 57,
+      "misses": 71,
       "requests": 128
     },
-    "seed": 7,
+    "seed": 74,
     "size": 128,
     "task": "memory_tier"
   }

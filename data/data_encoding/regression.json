@@ -2,13 +2,13 @@
   {
     "expected": {
       "backend": "python",
-      "compressed_bytes": 5388,
+      "compressed_bytes": 5439,
       "input_bytes": 8192,
-      "ratio": 0.6577,
+      "ratio": 0.6639,
       "roundtrip": true,
-      "sha256": "9937957b8c18ae7965f7ecf6fd355064db5a8d6ea251719f602f49d2817f0631"
+      "sha256": "fd1c38e6389403240f49d439a8cb65c9c90dfee38e5a50f027263984e8b00cdd"
     },
-    "seed": 4,
+    "seed": 44,
     "size": 8192,
     "task": "data_encoding"
   }
