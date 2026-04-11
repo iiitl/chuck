@@ -44,4 +44,4 @@ def solve(graph: dict[str, list[str]], iterations: int = 16, damping: float = 0.
     }
 
 
-TASK_SPEC = TaskSpec("graph_analytics", generate, solve, 48, 1_000)
+TASK_SPEC = TaskSpec("graph_analytics", generate, solve, 48, 200_000)

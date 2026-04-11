@@ -72,7 +72,7 @@ TASK_SPEC = TaskSpec(
     generate,
     solve,
     48,
-    2_000,
+    2000_000,
     algorithm_style="probabilistic",
     reliability_floor=0.88,
 )
