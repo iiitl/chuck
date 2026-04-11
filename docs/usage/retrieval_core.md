@@ -18,3 +18,11 @@ results = solve(payload)
 print(f"Confidence: {results['confidence']}")
 print(f"Query Hits: {results['query_hits']}")
 print(f"Top Term: {results['top_term']}")
+```
+
+# Outputs
+```text
+Confidence: 0.875
+Query Hits: {'eta': 68, 'kappa': 76, 'alpha': 72, 'delta': 70}
+Top Term: epsilon
+```
