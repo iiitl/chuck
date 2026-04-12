@@ -1,16 +1,18 @@
 #include <pybind11/pybind11.h>
 #include <pybind11/stl.h>
-
 #include <algorithm>
 #include <cmath>
 #include <map>
 #include <string>
 #include <vector>
+#include <unordered_map>
+#include <utility>
 
 namespace py = pybind11;
 
 py::dict solve(py::object payload_obj) {
-    std::map<std::string, std::vector<std::string>> graph = payload_obj.cast<std::map<std::string, std::vector<std::string>>>();
+    auto graph = payload_obj.cast<std::map<std::string, std::vector<std::string>>>();
+
     std::vector<std::string> nodes;
     nodes.reserve(graph.size());
     for (const auto& [node, _] : graph) {
@@ -27,54 +29,73 @@ py::dict solve(py::object payload_obj) {
         return output;
     }
 
-    constexpr int iterations = 16;
-    constexpr double damping = 0.85;
-    std::map<std::string, double> rank;
-    std::map<std::string, std::vector<std::string>> outgoing;
-    for (const auto& node : nodes) {
-        rank[node] = 1.0 / static_cast<double>(nodes.size());
-        auto found = graph.find(node);
-        if (found == graph.end() || found->second.empty()) {
-            outgoing[node] = nodes;
-        } else {
-            outgoing[node] = found->second;
-        }
+    const int n = static_cast<int>(nodes.size());
+
+    // Fix: .reserve(n) ensures the load factor stays low, preventing hash collisions
+    std::unordered_map<std::string, int> name_to_idx;
+    name_to_idx.reserve(n);
+    for (int i = 0; i < n; ++i) {
+        name_to_idx[nodes[i]] = i;
     }
 
-    const double base = (1.0 - damping) / static_cast<double>(nodes.size());
-    for (int step = 0; step < iterations; ++step) {
-        std::map<std::string, double> new_rank;
-        for (const auto& node : nodes) {
-            new_rank[node] = base;
-        }
-        for (const auto& node : nodes) {
-            const auto& edges = outgoing[node];
-            const double share = rank[node] / static_cast<double>(edges.size());
-            for (const auto& target : edges) {
-                new_rank[target] += damping * share;
+    std::vector<std::vector<int>> adj(n);
+    for (int u = 0; u < n; ++u) {
+        auto found = graph.find(nodes[u]);
+        if (found != graph.end() && !found->second.empty()) {
+            adj[u].reserve(found->second.size());
+            for (const auto& target : found->second) {
+                adj[u].push_back(name_to_idx.at(target));
             }
         }
-        rank = std::move(new_rank);
     }
 
-    std::string top_node;
-    double top_score = -1.0;
-    for (const auto& node : nodes) {
-        double score = rank[node];
-        if (score > top_score || (std::abs(score - top_score) < 1e-15 && node > top_node)) {
-            top_score = score;
-            top_node = node;
+    constexpr int iterations = 16;
+    constexpr double damping = 0.85;
+    const double base = (1.0 - damping) / static_cast<double>(n);
+
+    std::vector<double> rank(n, 1.0 / static_cast<double>(n));
+    std::vector<double> new_rank(n, 0.0);
+
+    for (int step = 0; step < iterations; ++step) {
+        std::fill(new_rank.begin(), new_rank.end(), base);
+
+        double dangling_share = 0.0;
+        for (int u = 0; u < n; ++u) {
+            if (adj[u].empty()) {
+                dangling_share += damping * rank[u] / static_cast<double>(n);
+                continue;
+            }
+            const double share = (damping * rank[u]) / static_cast<double>(adj[u].size());
+            for (int v : adj[u]) {
+                new_rank[v] += share;
+            }
+        }
+
+        if (dangling_share > 0.0) {
+            for (double& value : new_rank) {
+                value += dangling_share;
+            }
+        }
+        std::swap(rank, new_rank);
+    }
+
+    int top_idx = 0;
+    double top_score = rank[0];
+    for (int i = 1; i < n; ++i) {
+        if (rank[i] > top_score || (std::abs(rank[i] - top_score) < 1e-15 && nodes[i] > nodes[top_idx])) {
+            top_score = rank[i];
+            top_idx = i;
         }
     }
 
     double checksum = 0.0;
-    for (std::size_t index = 0; index < nodes.size(); ++index) {
-        checksum += static_cast<double>(index + 1) * rank[nodes[index]];
+    for (int i = 0; i < n; ++i) {
+        checksum += static_cast<double>(i + 1) * rank[i];
     }
 
     py::dict output;
-    output["node_count"] = py::int_(nodes.size());
-    output["top_node"] = py::str(top_node);
+    output["node_count"] = py::int_(n);
+    output["top_node"] = py::str(nodes[top_idx]);
     output["top_score"] = py::float_(std::round(top_score * 1000000.0) / 1000000.0);
     output["checksum"] = py::float_(std::round(checksum * 1000000.0) / 1000000.0);
     return output;
