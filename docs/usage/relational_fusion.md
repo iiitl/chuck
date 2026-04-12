@@ -55,14 +55,6 @@ result = solve(payload)
 print(f"Join rows  : {result['join_rows']}")
 print(f"Aggregate  : {result['aggregate']}")
 
-# 3. Verify against the known regression baseline (seed=10, size=128)
-assert result == {
-    "left_rows": 128,
-    "right_rows": 64,
-    "join_rows": 269,
-    "aggregate": 276559,
-}
-print("✓ Output matches regression baseline")
 ```
 
 **Expected terminal output:**
