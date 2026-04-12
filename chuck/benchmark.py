@@ -43,12 +43,12 @@ RUNNER_BY_NAME = {
 }
 
 
-def run_benchmarks(task: str | None = None) -> list[dict[str, Any]]:
+def run_benchmarks(task: str | None = None, size: int | None = None) -> list[dict[str, Any]]:
     if task is None:
-        return [runner() for runner in RUNNERS]
-    runner = RUNNER_BY_NAME[task]
-    return [runner()]
+        return [runner(size=size) for runner in RUNNERS]
 
+    runner = RUNNER_BY_NAME[task]
+    return [runner(size=size)]
 
 def _compact_output(output: Any) -> str:
     if not isinstance(output, dict):

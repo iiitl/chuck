@@ -37,6 +37,12 @@ def main() -> int:
         ],
         help="Run a single capability benchmark",
     )
+    bench_parser.add_argument(
+    "--size",
+    type=int,
+    default=None,
+    help="Override the default benchmark size"
+    )
     subparsers.add_parser("regress", help="Run regression checks")
     subparsers.add_parser("generate-baselines", help="Generate regression baselines")
     snapshot_parser = subparsers.add_parser("snapshot", help="Create a performance/reliability snapshot")
@@ -81,7 +87,7 @@ def main() -> int:
     command = args.command or "bench"
 
     if command == "bench":
-        print(format_benchmarks(run_benchmarks(task=args.task)))
+        print(format_benchmarks(run_benchmarks(task=args.task,size=args.size)))
         return 0
     if command == "regress":
         print(format_regression(run_regression()))
