@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from hashlib import blake2b, sha256
+import zlib
 from random import Random
 from typing import Any
 
@@ -8,9 +8,13 @@ from ...common import TaskSpec
 
 
 def _bloom_hashes(value: str, bit_count: int, hash_count: int) -> list[int]:
-    digest_a = int.from_bytes(blake2b(value.encode(), digest_size=8).digest(), "big")
-    digest_b = int.from_bytes(sha256(value.encode()).digest()[:8], "big")
-    return [((digest_a + index * digest_b) % bit_count) for index in range(hash_count)]
+    raw = value.encode()
+    h1 = zlib.crc32(raw)
+    h2 = zlib.adler32(raw)
+
+    step = 1 + (h2 % (bit_count - 1)) if bit_count > 1 else 1
+
+    return [((h1 + i * step) % bit_count) for i in range(hash_count)]
 
 
 def generate(count: int, seed: int) -> dict[str, Any]:
