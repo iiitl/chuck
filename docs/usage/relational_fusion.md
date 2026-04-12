@@ -67,8 +67,6 @@ Aggregate  : 276559
 ✓ Output matches regression baseline
 ```
 
-![Demo script output](image.png)
-
 ---
 
 ## Benchmarking
