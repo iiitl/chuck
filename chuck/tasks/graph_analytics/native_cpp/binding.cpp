@@ -1,17 +1,17 @@
 #include <pybind11/pybind11.h>
 #include <pybind11/stl.h>
-
 #include <algorithm>
 #include <cmath>
 #include <map>
 #include <string>
 #include <vector>
 #include <unordered_map>
+#include <utility>
 
 namespace py = pybind11;
 
 py::dict solve(py::object payload_obj) {
-    std::map<std::string, std::vector<std::string>> graph = payload_obj.cast<std::map<std::string, std::vector<std::string>>>();
+    auto graph = payload_obj.cast<std::map<std::string, std::vector<std::string>>>();
 
     std::vector<std::string> nodes;
     nodes.reserve(graph.size());
@@ -29,9 +29,11 @@ py::dict solve(py::object payload_obj) {
         return output;
     }
 
-    int n = nodes.size();
+    const int n = static_cast<int>(nodes.size());
 
+    // Fix: .reserve(n) ensures the load factor stays low, preventing hash collisions
     std::unordered_map<std::string, int> name_to_idx;
+    name_to_idx.reserve(n);
     for (int i = 0; i < n; ++i) {
         name_to_idx[nodes[i]] = i;
     }
@@ -39,13 +41,10 @@ py::dict solve(py::object payload_obj) {
     std::vector<std::vector<int>> adj(n);
     for (int u = 0; u < n; ++u) {
         auto found = graph.find(nodes[u]);
-        if (found == graph.end() || found->second.empty()) {
-            adj[u].resize(n);
-            for (int v = 0; v < n; ++v) adj[u][v] = v;
-        } else {
+        if (found != graph.end() && !found->second.empty()) {
             adj[u].reserve(found->second.size());
             for (const auto& target : found->second) {
-                adj[u].push_back(name_to_idx[target]);
+                adj[u].push_back(name_to_idx.at(target));
             }
         }
     }
@@ -60,22 +59,31 @@ py::dict solve(py::object payload_obj) {
     for (int step = 0; step < iterations; ++step) {
         std::fill(new_rank.begin(), new_rank.end(), base);
 
+        double dangling_share = 0.0;
         for (int u = 0; u < n; ++u) {
-            const double share = damping * rank[u] / static_cast<double>(adj[u].size());
+            if (adj[u].empty()) {
+                dangling_share += damping * rank[u] / static_cast<double>(n);
+                continue;
+            }
+            const double share = (damping * rank[u]) / static_cast<double>(adj[u].size());
             for (int v : adj[u]) {
                 new_rank[v] += share;
             }
         }
-        rank = new_rank;
+
+        if (dangling_share > 0.0) {
+            for (double& value : new_rank) {
+                value += dangling_share;
+            }
+        }
+        std::swap(rank, new_rank);
     }
 
     int top_idx = 0;
     double top_score = rank[0];
-
     for (int i = 1; i < n; ++i) {
-        double score = rank[i];
-        if (score > top_score || (std::abs(score - top_score) < 1e-15 && nodes[i] > nodes[top_idx])) {
-            top_score = score;
+        if (rank[i] > top_score || (std::abs(rank[i] - top_score) < 1e-15 && nodes[i] > nodes[top_idx])) {
+            top_score = rank[i];
             top_idx = i;
         }
     }
