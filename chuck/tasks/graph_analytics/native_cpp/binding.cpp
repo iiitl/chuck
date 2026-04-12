@@ -11,9 +11,8 @@
 namespace py = pybind11;
 
 py::dict solve(py::object payload_obj) {
-    
     std::map<std::string, std::vector<std::string>> graph = payload_obj.cast<std::map<std::string, std::vector<std::string>>>();
-    
+
     std::vector<std::string> nodes;
     nodes.reserve(graph.size());
     for (const auto& [node, _] : graph) {
@@ -32,18 +31,15 @@ py::dict solve(py::object payload_obj) {
 
     int n = nodes.size();
 
-    
     std::unordered_map<std::string, int> name_to_idx;
     for (int i = 0; i < n; ++i) {
         name_to_idx[nodes[i]] = i;
     }
 
-    
     std::vector<std::vector<int>> adj(n);
     for (int u = 0; u < n; ++u) {
         auto found = graph.find(nodes[u]);
         if (found == graph.end() || found->second.empty()) {
-           
             adj[u].resize(n);
             for (int v = 0; v < n; ++v) adj[u][v] = v;
         } else {
@@ -57,25 +53,25 @@ py::dict solve(py::object payload_obj) {
     constexpr int iterations = 16;
     constexpr double damping = 0.85;
     const double base = (1.0 - damping) / static_cast<double>(n);
-    
+
     std::vector<double> rank(n, 1.0 / static_cast<double>(n));
     std::vector<double> new_rank(n, 0.0);
 
     for (int step = 0; step < iterations; ++step) {
         std::fill(new_rank.begin(), new_rank.end(), base);
-        
+
         for (int u = 0; u < n; ++u) {
             const double share = damping * rank[u] / static_cast<double>(adj[u].size());
             for (int v : adj[u]) {
                 new_rank[v] += share;
             }
         }
-        rank = new_rank; 
+        rank = new_rank;
     }
 
     int top_idx = 0;
     double top_score = rank[0];
-    
+
     for (int i = 1; i < n; ++i) {
         double score = rank[i];
         if (score > top_score || (std::abs(score - top_score) < 1e-15 && nodes[i] > nodes[top_idx])) {
