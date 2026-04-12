@@ -6,5 +6,5 @@ from ...common import benchmark_task
 from ...tasks.data_encoding import TASK_SPEC
 
 
-def run() -> dict[str, Any]:
-    return benchmark_task(TASK_SPEC, seed=1_004)
+def run(size: int | None = None) -> dict[str, Any]:
+    return benchmark_task(TASK_SPEC, seed=1_004,size=size)
